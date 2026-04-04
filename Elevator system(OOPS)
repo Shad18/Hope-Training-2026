@@ -1,0 +1,108 @@
+import java.util.*;
+
+// Elevator class
+class Elevator {
+    private int currentFloor;
+    private String direction; // UP / DOWN / IDLE
+    private TreeSet<Integer> requests;
+
+    // Constructor
+    Elevator() {
+        this.currentFloor = 0;
+        this.direction = "IDLE";
+        this.requests = new TreeSet<>();
+    }
+
+    // Add request
+    public void requestFloor(int floor) {
+        requests.add(floor);
+        System.out.println("Request added for floor: " + floor);
+    }
+
+    // Move elevator
+    public void move() {
+        if (requests.isEmpty()) {
+            direction = "IDLE";
+            System.out.println("No requests. Elevator is idle.");
+            return;
+        }
+
+        while (!requests.isEmpty()) {
+            int nextFloor;
+
+            if (direction.equals("IDLE") || direction.equals("UP")) {
+                nextFloor = requests.first();
+                direction = (nextFloor > currentFloor) ? "UP" : "DOWN";
+            } else {
+                nextFloor = requests.last();
+                direction = (nextFloor > currentFloor) ? "UP" : "DOWN";
+            }
+
+            travelToFloor(nextFloor);
+            requests.remove(nextFloor);
+        }
+
+        direction = "IDLE";
+    }
+
+    // Travel logic
+    private void travelToFloor(int target) {
+        System.out.println("\nMoving from Floor " + currentFloor + " to " + target);
+
+        while (currentFloor != target) {
+            if (currentFloor < target) {
+                currentFloor++;
+            } else {
+                currentFloor--;
+            }
+            System.out.println("Current Floor: " + currentFloor);
+        }
+
+        System.out.println("Reached Floor " + currentFloor);
+    }
+
+    // Show status
+    public void showStatus() {
+        System.out.println("\n--- Elevator Status ---");
+        System.out.println("Current Floor: " + currentFloor);
+        System.out.println("Direction: " + direction);
+        System.out.println("Pending Requests: " + requests);
+    }
+}
+
+// User class
+class User {
+    private String name;
+
+    User(String name) {
+        this.name = name;
+    }
+
+    public void callElevator(Elevator elevator, int floor) {
+        System.out.println("\n" + name + " requested elevator at floor " + floor);
+        elevator.requestFloor(floor);
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+
+        Elevator elevator = new Elevator();
+
+        User u1 = new User("Alice");
+        User u2 = new User("Bob");
+
+        // Users request elevator
+        u1.callElevator(elevator, 3);
+        u2.callElevator(elevator, 7);
+        u1.callElevator(elevator, 1);
+
+        elevator.showStatus();
+
+        // Start elevator
+        elevator.move();
+
+        elevator.showStatus();
+    }
+}
