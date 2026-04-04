@@ -1,0 +1,99 @@
+🔹 Basic Methods
+
+length() 
+→ returns number of characters 
+→ "Hello".length() = 5
+
+charAt(i) 
+→ returns character at index 
+→ "Hello".charAt(1) = 'e'
+
+toUpperCase()
+→ converts to uppercase 
+→ "hi".toUpperCase() = "HI"
+
+toLowerCase() 
+→ converts to lowercase 
+→ "HI".toLowerCase() = "hi"
+
+trim() 
+→ removes leading & trailing spaces 
+→ " hi ".trim() = "hi"
+
+🔹 Comparison Methods
+
+equals(s) 
+→ checks if two strings are equal
+→ "abc".equals("abc") = true
+
+equalsIgnoreCase(s)
+→ compares ignoring case 
+→"abc".equalsIgnoreCase("ABC") = true
+
+compareTo(s) 
+→ compares lexicographically 
+→ "abc".compareTo("abd") = negative
+
+🔹 Searching Methods
+
+contains(s) 
+→ checks if substring exists
+→ "hello".contains("ell") = true
+
+indexOf(x) 
+→ returns first position 
+→ "hello".indexOf('l') = 2
+
+lastIndexOf(x)
+→ returns last position 
+→ "hello".lastIndexOf('l') = 3
+
+startsWith(s) 
+→ checks beginning 
+→ "hello".startsWith("he") = true
+
+endsWith(s) 
+→ checks ending 
+→ "hello".endsWith("lo") = true
+
+🔹 Modification Methods
+
+substring(b) 
+→ returns from index 
+→ "hello".substring(2) = "llo"
+
+substring(b,e) 
+→ returns range 
+→ "hello".substring(1,4) = "ell"
+
+replace(a,b) 
+→ replaces characters 
+→ "hello".replace('l','x') = "hexxo"
+
+replaceAll(r,x) 
+→ replaces using regex 
+→ "a1b2".replaceAll("\\d","") = "ab"
+
+concat(s) 
+→ joins strings 
+→ "hi".concat(" all") = "hi all"
+
+🔹 Conversion Methods
+
+toCharArray() 
+→ converts to char array 
+→ "hi".toCharArray() = ['h','i']
+
+valueOf(x) 
+→ converts to string 
+→ String.valueOf(10) = "10"
+
+🔹 Checking Methods
+
+isEmpty() 
+→ checks if string is empty 
+→ "".isEmpty() = true
+
+isBlank() 
+→ checks empty or spaces 
+→ " ".isBlank() = true
