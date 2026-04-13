@@ -1,0 +1,34 @@
+class ZigZag1{
+    static String convert(String s, int numRows) {
+        if(numRows==1 || s.length()<numRows) return s;
+
+        StringBuilder sb = new StringBuilder();
+        int gap = ((numRows)*2)-2;
+        for(int i=0; i<numRows; i++){
+            if(i==0){
+                for(int j=0; j<s.length(); j+=gap) sb.append(s.charAt(j));
+            }
+            else if(i==numRows-1){
+                for(int j=i; j<s.length(); j+=gap) sb.append(s.charAt(j));
+            }
+            else{
+                int first_gap = gap - (2*i);
+                int second_gap = 2*i;
+                int j=i;
+                boolean flag=true;
+                while(j<s.length()){
+                    sb.append(s.charAt(j));
+                    if(flag) j+=first_gap;
+                    else j+=second_gap;
+                    flag=!flag;
+                }
+            }
+        }
+        return sb.toString();
+    }
+    public static void main(String[] args) {
+        String s = "PAYPALISHIRING";
+        int numRows = 3;
+        System.out.println(convert(s, numRows));
+    }
+}
