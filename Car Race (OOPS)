@@ -1,0 +1,134 @@
+import java.util.*;
+
+// ABSTRACT CLASS (Abstraction)
+abstract class Car {
+    private String name;
+    private int maxSpeed;
+    private int position;
+
+    public Car(String name, int maxSpeed) {
+        this.name = name;
+        this.maxSpeed = maxSpeed;
+        this.position = 0;
+    }
+
+    // Encapsulation (getters)
+    public String getName() {
+        return name;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    protected int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    protected void updatePosition(int speed) {
+        position += speed;
+    }
+
+    // Abstract method
+    public abstract void move();
+}
+
+// INHERITANCE + POLYMORPHISM
+class SportsCar extends Car {
+    public SportsCar(String name, int maxSpeed) {
+        super(name, maxSpeed);
+    }
+
+    @Override
+    public void move() {
+        Random rand = new Random();
+        int speed = rand.nextInt(getMaxSpeed()) + 1;
+
+        // Boost feature
+        if (rand.nextBoolean()) {
+            speed += 2;
+            System.out.println(getName() + " used BOOST!");
+        }
+
+        updatePosition(speed);
+        System.out.println(getName() + " moves " + speed + " units. Total: " + getPosition());
+    }
+}
+
+// INHERITANCE + POLYMORPHISM
+class Truck extends Car {
+    public Truck(String name, int maxSpeed) {
+        super(name, maxSpeed);
+    }
+
+    @Override
+    public void move() {
+        Random rand = new Random();
+        int speed = rand.nextInt(getMaxSpeed() / 2) + 1;
+
+        updatePosition(speed);
+        System.out.println(getName() + " moves " + speed + " units (Heavy). Total: " + getPosition());
+    }
+}
+
+// RACE CLASS
+class Race {
+    private int distance;
+    private ArrayList<Car> cars;
+
+    public Race(int distance) {
+        this.distance = distance;
+        cars = new ArrayList<>();
+    }
+
+    public void addCar(Car car) {
+        cars.add(car);
+    }
+
+    public void startRace() {
+        System.out.println("🏁 Race Started!\n");
+
+        boolean raceFinished = false;
+
+        while (!raceFinished) {
+            for (Car car : cars) {
+                car.move(); // Polymorphism
+
+                if (car.getPosition() >= distance) {
+                    System.out.println("\n🎉 Winner is: " + car.getName());
+                    raceFinished = true;
+                    break;
+                }
+            }
+
+            System.out.println("-----------------------------");
+
+            try {
+                Thread.sleep(1000); // delay
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+// MAIN CLASS
+public class Main {
+    public static void main(String[] args) {
+
+        // Creating objects
+        Car car1 = new SportsCar("Ferrari", 10);
+        Car car2 = new SportsCar("Lamborghini", 9);
+        Car car3 = new Truck("Volvo Truck", 6);
+
+        // Race setup
+        Race race = new Race(50);
+
+        race.addCar(car1);
+        race.addCar(car2);
+        race.addCar(car3);
+
+        // Start race
+        race.startRace();
+    }
+}
